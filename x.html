@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>3D渐变立方体</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* 页面居中 + 3D视角基础 */
+        body {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            /* 开启3D空间，让立方体呈现立体效果 */
+            transform-style: preserve-3d;
+            /* 调整3D透视角度 */
+            perspective: 1000px;
+        }
+
+        /* 立方体容器 */
+        .cube {
+            width: 200px;
+            height: 200px;
+            position: relative;
+            /* 保留3D变换效果 */
+            transform-style: preserve-3d;
+            /* 可选：轻微旋转让你看到3D效果 */
+            transform: rotateX(20deg) rotateY(30deg);
+        }
+
+        /* 立方体六个面通用样式 */
+        .cube-face {
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            /* 黄色 → 绿色 线性渐变（从上到下） */
+            background: linear-gradient(to bottom, #ffff00, #00ff00);
+            /* 边框方便观察轮廓 */
+            border: 1px solid rgba(0,0,0,0.2);
+        }
+
+        /* 1. 正面：默认位置 */
+        .front {
+            /* 向前平移立方体边长的一半 */
+            transform: translateZ(100px);
+        }
+
+        /* 2. 背面：向后平移+旋转180度 */
+        .back {
+            transform: translateZ(-100px) rotateY(180deg);
+        }
+
+        /* 3. 左面：向左平移+旋转+skew定位 */
+        .left {
+            transform: translateX(-100px) rotateY(-90deg) skewY(0deg) skewX(0deg);
+        }
+
+        /* 4. 右面：向右平移+旋转+skew定位 */
+        .right {
+            transform: translateX(100px) rotateY(90deg) skewY(0deg) skewX(0deg);
+        }
+
+        /* 5. 顶面：向上平移+旋转+skewX定位 */
+        .top {
+            transform: translateY(-100px) rotateX(90deg) skewX(0deg) skewY(0deg);
+        }
+
+        /* 6. 底面：向下平移+旋转+skewY定位 */
+        .bottom {
+            transform: translateY(100px) rotateX(-90deg) skewX(0deg) skewY(0deg);
+        }
+    </style>
+</head>
+<body>
+    <div class="cube">
+        <div class="cube-face front"></div>
+        <div class="cube-face back"></div>
+        <div class="cube-face left"></div>
+        <div class="cube-face right"></div>
+        <div class="cube-face top"></div>
+        <div class="cube-face bottom"></div>
+    </div>
+</body>
+</html>
